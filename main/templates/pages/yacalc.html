@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <form class="form-inline" action="{% url 'yacalc' %}" method="get">
+                    {% for field in form.visible_fields %}
+                        <div class="form-group mx-sm-2">
+                            <label >{{ field.label }}</label>
+                        </div>
+                        <div class="form-group mx-sm-2">
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="form-group mx-sm-2">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                {% if result %}
+                    <h4>Результат</h4>
+                    {{ result|safe }}
+                {% else %}
+                    Результат ещё не вычислен
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

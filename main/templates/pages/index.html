@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block pagename %}
+<div class="row">
+    <div class="col text-center">
+        <h1>{{pagename}}</h1><hr>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card border-success">
+            <div class="card-header text-center">
+                Работа с новостями
+            </div>
+            <div class="card-body pb-0">
+                <div class="row">
+                    {% if request.user.is_authenticated %}
+                    <div class="col">
+                        <a href="{% url 'add' %}" class="btn btn-block btn-info">Добавить</a><br>
+                    </div>
+                    {% endif %}
+                    <div class="col">
+                        <a href="{% url 'feed' %}" class="btn btn-block btn-success">Просмотреть</a><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="col">
+        <div class="card border-warning">
+            <div class="card-header text-center">
+                Поиск новостей
+            </div>
+            <div class="card-body pb-0">
+                <a href="{% url 'search' %}" class="btn btn-block btn-warning">Перейти</a><br>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="col">
+        <div class="card border-danger">
+            <div class="card-header text-center">
+                Калькулятор-PRO
+            </div>
+            <div class="card-body pb-0">
+                <a href="{% url 'yacalc' %}" class="btn btn-block btn-danger">Перейти</a><br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

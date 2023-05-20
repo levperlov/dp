@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <form class="form-inline" action="{% url 'search' %}" method="get">
+                    {% for field in form.visible_fields %}
+                        <div class="form-group mx-sm-2">
+                            <label >{{ field.label }}</label>
+                        </div>
+                        <div class="form-group mx-sm-2">
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="form-group mx-sm-2">
+                        <button type="submit" class="btn btn-primary">Найти</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                {% if result %}
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Content</th>
+                                <th>Is public</th>
+                                <th>Published</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for news in result %}
+                            <tr>
+                                <td>{{ news.0 }}</td>
+                                <td>{{ news.1 }}</td>
+                                <td>{{ news.2 }}</td>
+                                <td>
+                                    {% if news.3 %}
+                                        <img src="{% static 'images/ok.png' %}" width="20px">
+                                    {% else %}
+                                        <img src="{% static 'images/no.png' %}" width="20px">
+                                    {% endif %}
+                                </td>
+                                <td>{{ news.4 | date:'m.d.Y H:i:s'  }}</td>
+                                <td>{{ news.5 }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    Новости не найдены
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
